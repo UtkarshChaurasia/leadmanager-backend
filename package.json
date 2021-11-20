@@ -1,0 +1,15 @@
+{
+  "name": "leadmanager-backend",
+  "version": "1.0.0",
+  "description": "leadmanager - Manage your leads at one place.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13"
+  }
+}
