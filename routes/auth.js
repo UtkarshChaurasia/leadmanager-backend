@@ -13,18 +13,18 @@ const JWT_SECRET = 'test_jwt';
 // ROUTE 1: Create a User using: POST "/api/auth/createuser". No login required
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
-    body('email', 'Enter a email name').isEmail(),
+    body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password must be atleast 5 characters').isLength({ min: 5 }),
 ], async (req, res) => {
 
-    // If there are errors, return Bad Request and errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
-
     try {
+
+        // If there are errors, return Bad Request and errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         // Check whether the user with this email exist already
         let user = await User.findOne({ email: req.body.email });
         if (user) {
@@ -41,6 +41,7 @@ router.post('/createuser', [
             password: secPass,
         });
 
+        // Send user id in JWT Token
         const jwtData = {
             user: {
                 id: user.id
@@ -49,8 +50,6 @@ router.post('/createuser', [
 
         // Signs given payload into a JWT string payload
         const authToken = jwt.sign(jwtData, JWT_SECRET);
-        console.log(jwtData);
-
         res.json({ authToken });
     }
     catch (error) {
@@ -71,15 +70,17 @@ router.post('/login', [
     body('password', 'Password cannot be blank').exists(),
 ], async (req, res) => {
 
-    // If there are errors, return Bad Request and errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
-    const { email, password } = req.body;
     try {
+        // If there are errors, return Bad Request and errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
 
+        // destructuring
+        const { email, password } = req.body;
+
+        // Search user by using email
         let user = await User.findOne({ email });
 
         // Check whether a user with this email exists or not
@@ -93,6 +94,7 @@ router.post('/login', [
             return res.status(400).json({ error: "Please try to login with correct credentials" });
         }
 
+        // Send user id in JWT Token
         const jwtData = {
             user: {
                 id: user.id

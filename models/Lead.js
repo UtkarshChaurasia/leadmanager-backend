@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
 
 const LeadSchema = new Schema({
+    user:{ // Acts like foriegn key
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
     name: {
         type: String,
         required: true
@@ -13,7 +19,7 @@ const LeadSchema = new Schema({
         type: String,
         required: true
     },
-    type: {
+    tag: {
         type: String,
         default: "General"
     },
