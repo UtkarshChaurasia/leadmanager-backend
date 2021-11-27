@@ -51,4 +51,42 @@ router.post('/addlead', fetchUser, [
 })
 
 
+
+// ROUTE 3: Update existing lead. PUT "/api/auth/updatelead". Login required
+router.put('/updatelead/:id', fetchUser, async (req, res) => {
+    try {
+        // destructuring
+        const { name, email, description, tag } = req.body;
+        // Create a newLead object
+        const newLead = {};
+        if (name) { newLead.name = name };
+        if (email) { newLead.email = email };
+        if (description) { newLead.description = description };
+        if (tag) { newLead.tag = tag };
+
+        // Find the lead to be updated and update it
+        let lead = await Lead.findById(req.params.id);
+
+        // If Lead doesn't exist
+        if (!lead) {
+            return res.status(404).send("Not Found");
+        }
+
+        // If someone other than lead's owner trying to update
+        if (lead.user.toString() !== req.user.id) {
+            return res.status(401).send("Not Allowed");
+        }
+
+        // Update lead
+        lead = await Lead.findByIdAndUpdate(req.params.id, { $set: newLead }, { new: true });
+        res.json({ lead });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+
+})
+
+
 module.exports = router
