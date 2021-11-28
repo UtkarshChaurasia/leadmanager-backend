@@ -86,6 +86,36 @@ router.put('/updatelead/:id', fetchUser, async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 
+});
+
+
+
+// ROUTE 4: Delete an existing Lead using DELTE "api/notes/deletelead". Login required
+router.delete('/deletelead/:id', fetchUser, async (req, res) => {
+    try {
+
+        // Find lead to be deleted and delete it
+        let lead = await Lead.findById(req.params.id);
+
+        // If Lead doesn't exist
+        if (!lead) {
+            return res.status(404).send("Not Found");
+        }
+
+        // If someone other than lead's owner trying to update
+        if (lead.user.toString() !== req.user.id) {
+            return res.status(404).send("Not Allowed");
+        }
+
+        // Delete lead
+        lead = await Lead.findByIdAndDelete(req.params.id);
+        res.json({ "Success": "Lead has been deleted", lead: lead });
+
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal Server Error");
+    }
 })
 
 
