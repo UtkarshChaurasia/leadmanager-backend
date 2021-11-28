@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
-const mongooseURI = 'mongodb://localhost:27017/leadmanager?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false';
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const connectToMongo = () => {
-    mongoose.connect(mongooseURI, () => {
+    mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
         console.log("Connected to Mongo Successfully");
     })
 }
