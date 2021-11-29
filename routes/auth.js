@@ -50,6 +50,7 @@ router.post('/createuser', [
         }
 
         // Signs given payload into a JWT string payload
+       
         const authToken = jwt.sign(jwtData, JWT_SECRET);
         res.json({ authToken });
     }
