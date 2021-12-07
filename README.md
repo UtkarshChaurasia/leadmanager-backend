@@ -1,6 +1,6 @@
 # 🌐 LEAD MANAGER BACKEND
 
-A Backend system of Lead Manager Webapp.
+Backend application for Lead Manager Webapp.
 
 ---
 
