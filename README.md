@@ -10,6 +10,7 @@ Backend application for Lead Manager Webapp.
 - Tested APIs using Thunder Client.
 - Used JSON web token for authentication.
 - Integrated MongoDB Cloud Database.
+- Used Salt & Pepper for hashing password to inhance security.
 - Passwords are encrypted using BycryptJs.
 - Backend application deployed on HEROKU.
 - Frontend is in development phase.
