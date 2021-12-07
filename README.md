@@ -6,7 +6,7 @@ Backend application for Lead Manager Webapp.
 
 ## :memo: Progress
 
-- Built backend APIs.
+- Built REST APIs.
 - Tested APIs using Thunder Client.
 - Used JSON web token for authentication.
 - Integrated MongoDB Cloud Database.
