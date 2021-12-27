@@ -29,7 +29,7 @@ Backend application for Lead Manager Webapp.
 
 ## :computer: Screenshots
 
-Screenshots of API testing on Thuder Client and will be replaced with final product once project is completed.
+Screenshots of API testing on  Thuder Client and will be replaced with final product once project is completed.
 
 Thunder Client Collection can be accessed [**here**](thunder-collection_leadmanager.json)
 
